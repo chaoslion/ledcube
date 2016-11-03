@@ -63,6 +63,8 @@
             this.nupFrameLength = new System.Windows.Forms.NumericUpDown();
             this.cbCopyFrame = new System.Windows.Forms.CheckBox();
             this.gbFrames = new System.Windows.Forms.GroupBox();
+            this.gbMotionTrail = new System.Windows.Forms.GroupBox();
+            this.cbClosedLoop = new System.Windows.Forms.CheckBox();
             this.btnMotionTrail = new System.Windows.Forms.Button();
             this.gbActualLength = new System.Windows.Forms.GroupBox();
             this.lblActualLength = new System.Windows.Forms.Label();
@@ -87,6 +89,7 @@
             this.gbLength.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nupFrameLength)).BeginInit();
             this.gbFrames.SuspendLayout();
+            this.gbMotionTrail.SuspendLayout();
             this.gbActualLength.SuspendLayout();
             this.gbFrame.SuspendLayout();
             this.gbFadingFrame.SuspendLayout();
@@ -166,7 +169,7 @@
             // 
             // btnClearFrames
             // 
-            this.btnClearFrames.Location = new System.Drawing.Point(87, 48);
+            this.btnClearFrames.Location = new System.Drawing.Point(104, 71);
             this.btnClearFrames.Name = "btnClearFrames";
             this.btnClearFrames.Size = new System.Drawing.Size(75, 23);
             this.btnClearFrames.TabIndex = 18;
@@ -414,7 +417,7 @@
             this.gbNewFrames.Controls.Add(this.cbCopyFrame);
             this.gbNewFrames.Location = new System.Drawing.Point(179, 3);
             this.gbNewFrames.Name = "gbNewFrames";
-            this.gbNewFrames.Size = new System.Drawing.Size(173, 220);
+            this.gbNewFrames.Size = new System.Drawing.Size(173, 200);
             this.gbNewFrames.TabIndex = 22;
             this.gbNewFrames.TabStop = false;
             this.gbNewFrames.Text = "New Frame";
@@ -516,36 +519,58 @@
             // 
             // gbFrames
             // 
-            this.gbFrames.Controls.Add(this.btnMotionTrail);
+            this.gbFrames.Controls.Add(this.gbMotionTrail);
             this.gbFrames.Controls.Add(this.gbActualLength);
             this.gbFrames.Controls.Add(this.pgbPlayIndex);
             this.gbFrames.Controls.Add(this.btnSloDnFrames);
             this.gbFrames.Controls.Add(this.btnSpdUpFrames);
             this.gbFrames.Controls.Add(this.cbAppendFrame);
             this.gbFrames.Controls.Add(this.btnClearFrames);
-            this.gbFrames.Location = new System.Drawing.Point(3, 229);
+            this.gbFrames.Location = new System.Drawing.Point(3, 209);
             this.gbFrames.Name = "gbFrames";
-            this.gbFrames.Size = new System.Drawing.Size(349, 110);
+            this.gbFrames.Size = new System.Drawing.Size(349, 134);
             this.gbFrames.TabIndex = 21;
             this.gbFrames.TabStop = false;
             this.gbFrames.Text = "All Frames";
             // 
+            // gbMotionTrail
+            // 
+            this.gbMotionTrail.Controls.Add(this.cbClosedLoop);
+            this.gbMotionTrail.Controls.Add(this.btnMotionTrail);
+            this.gbMotionTrail.Location = new System.Drawing.Point(255, 19);
+            this.gbMotionTrail.Name = "gbMotionTrail";
+            this.gbMotionTrail.Size = new System.Drawing.Size(88, 75);
+            this.gbMotionTrail.TabIndex = 26;
+            this.gbMotionTrail.TabStop = false;
+            this.gbMotionTrail.Text = "Motion trail";
+            // 
+            // cbClosedLoop
+            // 
+            this.cbClosedLoop.AutoSize = true;
+            this.cbClosedLoop.Location = new System.Drawing.Point(6, 48);
+            this.cbClosedLoop.Name = "cbClosedLoop";
+            this.cbClosedLoop.Size = new System.Drawing.Size(81, 17);
+            this.cbClosedLoop.TabIndex = 27;
+            this.cbClosedLoop.Text = "Closed loop";
+            this.cbClosedLoop.UseVisualStyleBackColor = true;
+            // 
             // btnMotionTrail
             // 
-            this.btnMotionTrail.Location = new System.Drawing.Point(87, 77);
+            this.btnMotionTrail.Location = new System.Drawing.Point(6, 19);
             this.btnMotionTrail.Name = "btnMotionTrail";
             this.btnMotionTrail.Size = new System.Drawing.Size(75, 23);
             this.btnMotionTrail.TabIndex = 26;
-            this.btnMotionTrail.Text = "Add trail";
+            this.btnMotionTrail.TabStop = false;
+            this.btnMotionTrail.Text = "Add";
             this.btnMotionTrail.UseVisualStyleBackColor = true;
             this.btnMotionTrail.Click += new System.EventHandler(this.btnMotionTrail_Click);
             // 
             // gbActualLength
             // 
             this.gbActualLength.Controls.Add(this.lblActualLength);
-            this.gbActualLength.Location = new System.Drawing.Point(168, 19);
+            this.gbActualLength.Location = new System.Drawing.Point(104, 19);
             this.gbActualLength.Name = "gbActualLength";
-            this.gbActualLength.Size = new System.Drawing.Size(175, 52);
+            this.gbActualLength.Size = new System.Drawing.Size(145, 46);
             this.gbActualLength.TabIndex = 25;
             this.gbActualLength.TabStop = false;
             this.gbActualLength.Text = "Actual length";
@@ -561,16 +586,16 @@
             // 
             // pgbPlayIndex
             // 
-            this.pgbPlayIndex.Location = new System.Drawing.Point(168, 77);
+            this.pgbPlayIndex.Location = new System.Drawing.Point(6, 100);
             this.pgbPlayIndex.Maximum = 1;
             this.pgbPlayIndex.Name = "pgbPlayIndex";
-            this.pgbPlayIndex.Size = new System.Drawing.Size(175, 23);
+            this.pgbPlayIndex.Size = new System.Drawing.Size(337, 23);
             this.pgbPlayIndex.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.pgbPlayIndex.TabIndex = 24;
             // 
             // btnSloDnFrames
             // 
-            this.btnSloDnFrames.Location = new System.Drawing.Point(6, 77);
+            this.btnSloDnFrames.Location = new System.Drawing.Point(6, 71);
             this.btnSloDnFrames.Name = "btnSloDnFrames";
             this.btnSloDnFrames.Size = new System.Drawing.Size(75, 23);
             this.btnSloDnFrames.TabIndex = 20;
@@ -580,7 +605,7 @@
             // 
             // btnSpdUpFrames
             // 
-            this.btnSpdUpFrames.Location = new System.Drawing.Point(6, 48);
+            this.btnSpdUpFrames.Location = new System.Drawing.Point(6, 42);
             this.btnSpdUpFrames.Name = "btnSpdUpFrames";
             this.btnSpdUpFrames.Size = new System.Drawing.Size(75, 23);
             this.btnSpdUpFrames.TabIndex = 19;
@@ -595,7 +620,7 @@
             this.gbFrame.Controls.Add(this.gbBrightness);
             this.gbFrame.Location = new System.Drawing.Point(3, 3);
             this.gbFrame.Name = "gbFrame";
-            this.gbFrame.Size = new System.Drawing.Size(170, 220);
+            this.gbFrame.Size = new System.Drawing.Size(170, 200);
             this.gbFrame.TabIndex = 20;
             this.gbFrame.TabStop = false;
             this.gbFrame.Text = "Current Frame";
@@ -705,6 +730,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.nupFrameLength)).EndInit();
             this.gbFrames.ResumeLayout(false);
             this.gbFrames.PerformLayout();
+            this.gbMotionTrail.ResumeLayout(false);
+            this.gbMotionTrail.PerformLayout();
             this.gbActualLength.ResumeLayout(false);
             this.gbActualLength.PerformLayout();
             this.gbFrame.ResumeLayout(false);
@@ -770,6 +797,8 @@
         private System.Windows.Forms.ProgressBar pgbPlayIndex;
         private System.Windows.Forms.GroupBox gbActualLength;
         private System.Windows.Forms.Button btnMotionTrail;
+        private System.Windows.Forms.GroupBox gbMotionTrail;
+        private System.Windows.Forms.CheckBox cbClosedLoop;
     }
 }
 

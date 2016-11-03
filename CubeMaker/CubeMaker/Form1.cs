@@ -35,8 +35,7 @@ namespace CubeMaker {
         const uint MIN_LENGTH_MS = (uint)(1 / (decimal)FRAME_RATE * 1000);
         const uint MAX_LENGTH_MS = (uint)1000;
         const uint MAX_TICKS = (uint)((decimal)MAX_LENGTH_MS * FRAME_RATE / 1000);
-
-
+        
         const uint DEMO_ALL_COPIES = 5;
 
         int cube_layer_spacing;
@@ -699,7 +698,7 @@ namespace CubeMaker {
                 this.btnSpdUpFrames.Enabled = false;
                 this.btnSloDnFrames.Enabled = false;
                 this.btnClearFrames.Enabled = false;
-                this.btnMotionTrail.Enabled = false;
+                this.gbMotionTrail.Enabled = false;
                 this.gbNewFrames.Enabled = false;
                 // frames
                 this.lbFrames.Enabled = false;
@@ -731,7 +730,7 @@ namespace CubeMaker {
                 this.btnSpdUpFrames.Enabled = true;
                 this.btnSloDnFrames.Enabled = true;
                 this.btnClearFrames.Enabled = true;
-                this.btnMotionTrail.Enabled = true;
+                this.gbMotionTrail.Enabled = true;
                 this.gbNewFrames.Enabled = true;
                 // frames
                 this.lbFrames.Enabled = true;
@@ -853,7 +852,7 @@ namespace CubeMaker {
             updateActiveFrame(selindex, true);
             // only enable fading of last item is selected
             bool lastFrameSelected = selindex == this.frames.Count - 1;
-            this.btnMotionTrail.Enabled = lastFrameSelected;
+            this.gbMotionTrail.Enabled = lastFrameSelected;
             this.gbFadingFrame.Enabled = lastFrameSelected;
             this.gbNewFrames.Enabled = lastFrameSelected;
             this.gbFadingNewFrames.Enabled = lastFrameSelected && this.cbCopyFrame.Checked;
@@ -978,6 +977,21 @@ namespace CubeMaker {
             // add trail to ALL frames with current fading settings
             uint steps = (uint)this.nupFadeSteps.Value;
             uint frames_cnt = (uint)this.frames.Count;
+
+            if (this.cbClosedLoop.Checked) {
+                if( frames_cnt < steps ) {
+                    MessageBox.Show(String.Format("You need at least {0} frames", steps));
+                    return;
+                }
+                // copy first *steps* frames and add to end
+                for(uint i=0;i<steps;i++) {
+                    updateActiveFrame((int)i, false);
+                    addFrameItem(FrameOptions.CopyLast);
+                }
+                // update to reflect changes
+                frames_cnt = (uint)this.frames.Count;
+            }
+
             uint new_frames_cnt = frames_cnt * (steps - 2) + 2;
             for (uint index = 0; index < new_frames_cnt; index++) {
                 updateActiveFrame((int)(index), false);
@@ -987,7 +1001,14 @@ namespace CubeMaker {
                 }
 
             }
-            selectLastFrameItem();
+            if( this.cbClosedLoop.Checked ) {
+                // remove *steps * frames from beginning and end
+                for (uint i = 0; i < steps; i++) {
+                    removeFrameItem(0);
+                    removeFrameItem(this.frames.Count-1);
+                }
+            }
+            selectFirstFrameItem();
             focusFrames();
         }
     }
