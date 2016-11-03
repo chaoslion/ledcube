@@ -1,3 +1,18 @@
+Firmware/ledcube/Debug/*
+Firmware/ledcube/Release/*
+Firmware/.vs/*
+CubeMaker/CubeMaker/bin/*
+CubeMaker/CubeMaker/obj/*
+
+
+
+*.suo
+*.user
+*.sln.docstates
+
+
+
+
 # Windows image file caches
 Thumbs.db
 ehthumbs.db
