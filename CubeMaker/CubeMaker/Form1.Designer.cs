@@ -66,7 +66,6 @@
             this.gbMotionTrail = new System.Windows.Forms.GroupBox();
             this.cbClosedLoop = new System.Windows.Forms.CheckBox();
             this.btnMotionTrail = new System.Windows.Forms.Button();
-            this.gbActualLength = new System.Windows.Forms.GroupBox();
             this.lblActualLength = new System.Windows.Forms.Label();
             this.pgbPlayIndex = new System.Windows.Forms.ProgressBar();
             this.btnSloDnFrames = new System.Windows.Forms.Button();
@@ -78,6 +77,8 @@
             this.btnBrightenFrame = new System.Windows.Forms.Button();
             this.gbBrightness = new System.Windows.Forms.GroupBox();
             this.lblBrightness = new System.Windows.Forms.Label();
+            this.lblError = new System.Windows.Forms.Label();
+            this.gpActualLength = new System.Windows.Forms.GroupBox();
             this.msMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbCube)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nupBrightness)).BeginInit();
@@ -90,11 +91,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.nupFrameLength)).BeginInit();
             this.gbFrames.SuspendLayout();
             this.gbMotionTrail.SuspendLayout();
-            this.gbActualLength.SuspendLayout();
             this.gbFrame.SuspendLayout();
             this.gbFadingFrame.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nupFadeSteps)).BeginInit();
             this.gbBrightness.SuspendLayout();
+            this.gpActualLength.SuspendLayout();
             this.SuspendLayout();
             // 
             // msMain
@@ -169,7 +170,7 @@
             // 
             // btnClearFrames
             // 
-            this.btnClearFrames.Location = new System.Drawing.Point(104, 71);
+            this.btnClearFrames.Location = new System.Drawing.Point(98, 71);
             this.btnClearFrames.Name = "btnClearFrames";
             this.btnClearFrames.Size = new System.Drawing.Size(75, 23);
             this.btnClearFrames.TabIndex = 18;
@@ -519,8 +520,8 @@
             // 
             // gbFrames
             // 
+            this.gbFrames.Controls.Add(this.gpActualLength);
             this.gbFrames.Controls.Add(this.gbMotionTrail);
-            this.gbFrames.Controls.Add(this.gbActualLength);
             this.gbFrames.Controls.Add(this.pgbPlayIndex);
             this.gbFrames.Controls.Add(this.btnSloDnFrames);
             this.gbFrames.Controls.Add(this.btnSpdUpFrames);
@@ -565,24 +566,14 @@
             this.btnMotionTrail.UseVisualStyleBackColor = true;
             this.btnMotionTrail.Click += new System.EventHandler(this.btnMotionTrail_Click);
             // 
-            // gbActualLength
-            // 
-            this.gbActualLength.Controls.Add(this.lblActualLength);
-            this.gbActualLength.Location = new System.Drawing.Point(104, 19);
-            this.gbActualLength.Name = "gbActualLength";
-            this.gbActualLength.Size = new System.Drawing.Size(145, 46);
-            this.gbActualLength.TabIndex = 25;
-            this.gbActualLength.TabStop = false;
-            this.gbActualLength.Text = "Actual length";
-            // 
             // lblActualLength
             // 
             this.lblActualLength.AutoSize = true;
             this.lblActualLength.Location = new System.Drawing.Point(6, 16);
             this.lblActualLength.Name = "lblActualLength";
-            this.lblActualLength.Size = new System.Drawing.Size(58, 13);
+            this.lblActualLength.Size = new System.Drawing.Size(40, 13);
             this.lblActualLength.TabIndex = 23;
-            this.lblActualLength.Text = "not playing";
+            this.lblActualLength.Text = "Actual:";
             // 
             // pgbPlayIndex
             // 
@@ -697,6 +688,26 @@
             this.lblBrightness.TabIndex = 14;
             this.lblBrightness.Text = "label2";
             // 
+            // lblError
+            // 
+            this.lblError.AutoSize = true;
+            this.lblError.Location = new System.Drawing.Point(6, 29);
+            this.lblError.Name = "lblError";
+            this.lblError.Size = new System.Drawing.Size(32, 13);
+            this.lblError.TabIndex = 27;
+            this.lblError.Text = "Error:";
+            // 
+            // gpActualLength
+            // 
+            this.gpActualLength.Controls.Add(this.lblActualLength);
+            this.gpActualLength.Controls.Add(this.lblError);
+            this.gpActualLength.Location = new System.Drawing.Point(98, 19);
+            this.gpActualLength.Name = "gpActualLength";
+            this.gpActualLength.Size = new System.Drawing.Size(148, 46);
+            this.gpActualLength.TabIndex = 28;
+            this.gpActualLength.TabStop = false;
+            this.gpActualLength.Text = "Length";
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -732,13 +743,13 @@
             this.gbFrames.PerformLayout();
             this.gbMotionTrail.ResumeLayout(false);
             this.gbMotionTrail.PerformLayout();
-            this.gbActualLength.ResumeLayout(false);
-            this.gbActualLength.PerformLayout();
             this.gbFrame.ResumeLayout(false);
             this.gbFadingFrame.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.nupFadeSteps)).EndInit();
             this.gbBrightness.ResumeLayout(false);
             this.gbBrightness.PerformLayout();
+            this.gpActualLength.ResumeLayout(false);
+            this.gpActualLength.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -795,10 +806,11 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label lblActualLength;
         private System.Windows.Forms.ProgressBar pgbPlayIndex;
-        private System.Windows.Forms.GroupBox gbActualLength;
         private System.Windows.Forms.Button btnMotionTrail;
         private System.Windows.Forms.GroupBox gbMotionTrail;
         private System.Windows.Forms.CheckBox cbClosedLoop;
+        private System.Windows.Forms.Label lblError;
+        private System.Windows.Forms.GroupBox gpActualLength;
     }
 }
 

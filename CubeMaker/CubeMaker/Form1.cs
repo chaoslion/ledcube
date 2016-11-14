@@ -57,8 +57,20 @@ namespace CubeMaker {
             this.play_index = 0;
             this.active_frame = null;
             this.frames = new BindingList<CubeFrame>();
+            this.play_watch = new Stopwatch();
 
             InitializeComponent();
+        }
+
+        private void updateErrorLabels(int tnow) {
+            if (tnow >= 0) {
+                decimal error = Math.Abs(getLengthFromTicks(getTotalTicks()) - tnow);
+                this.lblActualLength.Text = String.Format("{0} {1:0.##} ms", this.lblActualLength.Tag, this.play_watch.ElapsedMilliseconds);
+                this.lblError.Text = String.Format("{0} {1:0.##} ms", this.lblError.Tag, error);
+            } else {
+                this.lblActualLength.Text = (string)this.lblActualLength.Tag + " ? ms";
+                this.lblError.Text = (string)this.lblError.Tag + " ? ms";
+            }
         }
 
         private void frmMain_Load(object sender, EventArgs e) {
@@ -66,6 +78,9 @@ namespace CubeMaker {
 
             this.gbFrames.Tag = this.gbFrames.Text;
             this.lblActualLength.Tag = this.lblActualLength.Text;
+            this.lblError.Tag = this.lblError.Text;
+
+            updateErrorLabels(-1);
 
             recalcCubeDimensions();
 
@@ -616,8 +631,9 @@ namespace CubeMaker {
                         ticks = 1;
                     }
                     frame.updateTicks(ticks);
-                }
+                }                
                 this.frames.ResetBindings();
+                redrawFramesCount();
             } else if(e.KeyCode == Keys.Up) {
                 selectFrameItem(selindex, true);
             } else if (e.KeyCode == Keys.Down) {
@@ -681,7 +697,6 @@ namespace CubeMaker {
                 this.pgbPlayIndex.Maximum = this.frames.Count;
                 
                 // lock/change ui
-                this.lblActualLength.Text = "? ms";
 
                 // main menu
                 this.msMainPlay.Text = "Stop";
@@ -705,6 +720,7 @@ namespace CubeMaker {
                 
                 // start
                 this.playing = true;
+                this.play_watch.Restart();
                 this.tmPlayer.Enabled = true;
             } else {
                 this.tmPlayer.Enabled = false;
@@ -712,7 +728,7 @@ namespace CubeMaker {
 
 
                 // lock/change ui
-                this.lblActualLength.Text = (string)this.lblActualLength.Tag;
+                updateErrorLabels(-1);
                 this.pgbPlayIndex.Value = 0;
 
                 // main menu
@@ -794,19 +810,7 @@ namespace CubeMaker {
 
             // play sequence
             CubeFrame frame = (CubeFrame)this.frames[(int)this.play_index];
-
-            if (this.play_index == 0) {
-
-                if (this.play_watch == null) {
-                    this.play_watch = Stopwatch.StartNew();
-                } else {
-                    this.play_watch.Stop();
-                    decimal error = Math.Abs(getLengthFromTicks(getTotalTicks()) - this.play_watch.ElapsedMilliseconds);
-                    this.lblActualLength.Text = String.Format("{0:0.##} ms (Error: {1:0.##} ms)", this.play_watch.ElapsedMilliseconds, error);
-                    this.play_watch = null;
-                }
-            }
-
+            
             if (this.spCube.IsOpen) {
                 Byte[] data = frame.ToBytes();
                 this.spCube.Write(data, 0, data.Length);
@@ -819,6 +823,13 @@ namespace CubeMaker {
             if (!frame.playFrame()) {
                 frame.reset();
                 this.play_index = (this.play_index + 1) % (uint)this.frames.Count;
+
+                if (this.play_index == 0) {                                        
+                    this.play_watch.Stop();
+                    updateErrorLabels((int)this.play_watch.ElapsedMilliseconds);                    
+                    this.play_watch.Restart();
+                }
+
             }
         }
 
